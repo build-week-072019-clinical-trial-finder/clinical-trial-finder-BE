@@ -7,16 +7,23 @@ const secrets = require("../config/secrets");
 
 router.post("/register", (req, res) => {
   let user = req.body;
-  const hash = bcrypt.hashSync(user.password, 10);
-  user.password = hash;
 
-  Users.add(user)
-    .then(saved => {
-      res.status(201).json(saved);
-    })
-    .catch(error => {
-      res.status(500).json(error);
+  if (user.username.length > 0 && user.password.length > 5) {
+    const hash = bcrypt.hashSync(user.password, 10);
+    user.password = hash;
+    Users.add(user)
+      .then(saved => {
+        res.status(201).json(saved);
+      })
+      .catch(error => {
+        res.status(500).json(error);
+      });
+  } else {
+    res.status(400).json({
+      message:
+        "Username can't be blank and Password must be 6 or more characters"
     });
+  }
 });
 
 router.post("/login", (req, res) => {
