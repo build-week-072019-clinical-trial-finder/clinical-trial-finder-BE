@@ -3,7 +3,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const Users = require("../users/users-model");
+const Watchlist = require("../watchlist/watchlist-model");
 const secrets = require("../config/secrets");
+const restricted = require("../auth/restricted-middleware");
 
 router.post("/register", (req, res) => {
   let user = req.body;
@@ -63,5 +65,17 @@ function generateToken(user) {
 
   return jwt.sign(jwtPayload, secrets.jwtSecret, jwtOptions);
 }
+
+// const requestOptions = {
+//   headers: { accept: "application/json" }
+// }
+
+// router.get("/watchlist", restricted, requestOptions, (req, res) => {
+//   Watchlist.findWatchlist()
+//     .then(trials => {
+//       res.json(trials);
+//     })
+//     .catch(err => res.send(err));
+// });
 
 module.exports = router;
