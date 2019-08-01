@@ -12,8 +12,8 @@ exports.up = function(knex) {
       watchlist.increments();
       watchlist.string("agency");
       watchlist.string("brief_title");
-      watchlist.string("official_title");
-      watchlist.string("brief_summary");
+      watchlist.text("official_title"); //////
+      watchlist.text("brief_summary"); //////
       watchlist.string("city");
       watchlist.string("state");
       watchlist.string("country");
@@ -37,5 +37,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists("users").dropTableIfExists("watchlist");
+  return knex.schema.dropTableIfExists("watchlist").dropTableIfExists("users");
 };
