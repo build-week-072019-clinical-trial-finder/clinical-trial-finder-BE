@@ -28,5 +28,3 @@ module.exports = {
     }
   }
 };
-
-// i added the pool object to the production to see if thats why the endpoints weren't working
