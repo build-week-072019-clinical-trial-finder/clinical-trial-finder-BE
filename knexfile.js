@@ -20,6 +20,11 @@ module.exports = {
   production: {
     client: "pg",
     connection: process.env.DATABASE_URL,
+    pool: {
+      afterCreate: (conn, done) => {
+        conn.run("PRAGMA foreign_keys = ON", done);
+      }
+    },
     migrations: {
       directory: "./database/migrations"
     },
@@ -28,3 +33,5 @@ module.exports = {
     }
   }
 };
+
+// i added the pool object to the production to see if thats why the endpoints weren't working
